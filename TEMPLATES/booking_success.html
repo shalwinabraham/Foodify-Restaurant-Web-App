@@ -1,0 +1,13 @@
+{% extends 'nav.html' %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 10px;">
+    <h2 style="text-align: center; color: #0ecd0b;">Order Placed Successfully!</h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'book_table' %}" class="btn btn-primary" style="background-color: #ff6600; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Book a Table</a>
+        <a href="{% url 'home' %}" class="btn btn-primary" style="background-color: #ff6600; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Back to home</a>
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+<style>
+    body, html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .content1 {
+        width: 100%;
+        height: 60rem;
+        max-width: 1600px;
+       
+        padding-top: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        background-image: url('../static/images/bg.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        top: -20px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #ff6a00;
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #444;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+    }
+
+    .btn:active::after {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+        transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:active {
+        transform: scale(0.95);
+    }
+
+    div.food-item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 230px;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    div.food-item:hover {
+        transform: scale(.95);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .logout-btn {
+        position: fixed; 
+        top: 20px;
+        right: 20px;
+        background-color: #000000;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 1000; 
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        transform: scale(1.1);
+        background-color: #000000;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-group a {
+        margin: 0 20px;
+    }
+</style>
+
+<a href="{% url 'login' %}" class="logout-btn">Logout</a>
+
+<div class="content1">
+    <div class="overlay">
+        <div style="text-align: center; margin: 20px 0; font-family: 'Roboto', sans-serif;">
+            <h2 style="color: #ffffff; font-size: 2rem; font-weight: bold;">Welcome, {{ user.username }}</h2>
+            <h3 style="color: #ffffff; font-size: 1rem; font-weight: 300;">Explore Our Delicious Food Items</h3>
+        </div>
+
+        <div class="button-group" style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'cart' %}" class="btn">Go to Cart</a>
+            <a href="{% url 'my_orders' %}" class="btn">My Orders</a>
+            <a href="{% url 'bookedtables' %}" class="btn">Booked Tables</a>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px;">
+            {% for food_item in item %}
+            <div class="food-item">
+                <img src="{{ food_item.image.url }}" alt="{{ food_item.name }}" style="width: 200px; height: 150px; object-fit: cover; border-radius: 10px 10px 0 0;">
+                <div style="padding: 15px;">
+                    <p style="font-size: 1.2rem; font-weight: 500; margin: 10px 0; color: #333;">{{ food_item.name }}</p>
+                    <p style="font-size: 1rem; color: #888;">₹{{ food_item.price }}</p>
+                    <a href="{% url 'add_to_cart' food_item.id %}" class="btn" style="margin-top: 10px;">Add to Cart</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

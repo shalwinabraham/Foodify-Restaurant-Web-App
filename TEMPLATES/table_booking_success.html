@@ -1,0 +1,14 @@
+{% extends 'nav.html' %}
+
+{% block content %}
+    <h2 style="text-align: center; color: #02db10;">Table Booked Successfully! </h2>
+    <h3 style="text-align: center; color: #000000;">Confirmation has been sent to your email</h1>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'book_table' %}" class="btn btn-primary" style="background-color: #ff6600; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Book another Table</a>
+        <a href="{% url 'home' %}" class="btn btn-primary" style="background-color: #ff6600; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Back to home</a>
+        <a href="{% url 'bookedtables' %}" class="btn btn-primary" style="background-color: #2b2a29; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">View Booked tables</a>
+
+    </div>
+
+
+{% endblock %}

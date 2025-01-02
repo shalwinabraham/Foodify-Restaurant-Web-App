@@ -1,0 +1,32 @@
+{% extends 'nav.html' %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: #f9f9f9;">
+    <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7); width: 100%; max-width: 400px;">
+        <h2 style="text-align: center; color: #ff6600; margin-bottom: 20px;">Book a Table</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <label for="table_number" style="display: block; font-weight: bold; margin-bottom: 5px;">Table Number:</label>
+                <select id="table_number" name="table_number" required style="width: 105%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <option>T1</option>
+                    <option>T2</option>
+                    <option>T3</option>
+                    <option>T4</option>
+                    <option>T5</option>
+                    <option>T6</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label for="booking_time" style="display: block; font-weight: bold; margin-bottom: 5px;">Booking Time:</label>
+                <input type="datetime-local" id="booking_time" name="booking_time" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label for="number_of_guests" style="display: block; font-weight: bold; margin-bottom: 5px;">Number of Guests:</label>
+                <input type="number" id="number_of_guests" name="number_of_guests" min="1" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #ff6600; color: #fff; padding: 10px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Book Table</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

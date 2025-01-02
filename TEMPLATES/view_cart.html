@@ -1,0 +1,82 @@
+{% extends 'nav.html' %}
+
+{% block content %}
+<style>
+    body, html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        display: flex;
+       
+        
+    }
+    .cartdiv {
+        width: 50%; 
+        margin-left: 23.5%;
+        margin-top:40px;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        text-align: center;
+    }
+</style>
+
+<div class="cartdiv">
+    <h2 style="text-align: center; color: #ff6600;">Cart</h2>
+    <ul style="list-style-type: none; padding: 0;">
+        {% for item in cart_items %}
+            <li style="display: flex; align-items: center; margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #ddd; transition: transform 0.2s; cursor: pointer;">
+                <div style="margin-right: 20px;">
+                    <img src="{{ item.food_item.image.url }}" alt="{{ item.food_item.name }}" style="width: 100px; height: 100px; border-radius: 8px;">
+                </div>
+                <div style="flex-grow: 1;">
+                    <p style="margin: 0; font-size: 18px; font-weight: bold; color: #333;">{{ item.food_item.name }}</p>
+                    <p style="margin: 5px 0; color: #666;">Quantity: {{ item.quantity }} - ₹{{ item.get_total_price }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'remove_from_cart' item.id %}" style="background-color: #ff6600; color: #fff; padding: 5px 10px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;">Remove</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    {% if cart_items %}
+        <h3 style="text-align: center; color: #000000;">Total: ₹{{ total_amount }}</h3>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'place_order' %}" class="btn btn-primary" style="background-color: #ff6600; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;">Place Order</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s; margin-left: 10px;">Go to Home</a>
+        </div>
+    {% else %}
+        <p style="text-align: center; color: #666;">Your cart is empty.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'home' %}" class="btn btn-secondary" style="background-color: #333; color: #fff; padding: 10px 20px  ; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;">Order Now</a>
+        </div>
+    {% endif %}
+</div>
+<script>
+    document.querySelectorAll('li').forEach(function(item) {
+        item.addEventListener('click', function() {
+            item.style.transform = 'scale(1.05)';
+            setTimeout(function() {
+                item.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+
+    document.querySelectorAll('a.btn').forEach(function(btn) {
+        btn.addEventListener('mouseenter', function() {
+            btn.style.backgroundColor = '#e65c00';
+        });
+        btn.addEventListener('mouseleave', function() {
+            if (btn.classList.contains('btn-primary')) {
+                btn.style.backgroundColor = '#ff6600';
+            } else {
+                btn.style.backgroundColor = '#333';
+            }
+        });
+    });
+</script>
+{% endblock %}

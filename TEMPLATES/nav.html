@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Foodify</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: #313030;
+            color: #ffffff;
+            position:fixed;
+            width:100%;
+            height: 30px;
+            
+            
+            
+            
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1;
+            padding-left: 10px;
+        }
+
+        nav ul li a {
+            color:#ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration:wavy;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .content {
+
+            width: 100%;
+            height: 60rem;
+            max-width: 1600px;
+            padding-top: 5%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .food-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+            margin: 0 -10px;
+        }
+
+        .food-items li {
+            background-color: #fff; 
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            width: calc(20% - 20px);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .food-items li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'cart' %}">Cart</a></li>
+            <li><a href="{% url 'my_orders' %}">My Orders</a></li>
+            <li><a href="{% url 'bookedtables' %}">Booked tables</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="{% block container_class %}{% endblock %}">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
